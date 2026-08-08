@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QR Code Generator & Scanner</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- QR Generator Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- QR Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <header>
+            <div class="logo">▣</div>
+            <h1>QR Code Generator & Scanner</h1>
+            <p>Create and scan QR codes instantly</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('generator')">
+                Generate QR
+            </button>
+
+            <button class="tab" onclick="showSection('scanner')">
+                Scan QR
+            </button>
+        </div>
+
+        <!-- ================= GENERATOR ================= -->
+
+        <section id="generator" class="section active-section">
+
+            <div class="card">
+
+                <h2>Generate QR Code</h2>
+
+                <p class="description">
+                    Enter text, a URL, phone number, or any information.
+                </p>
+
+                <label for="qrText">Enter text or URL</label>
+
+                <textarea
+                    id="qrText"
+                    placeholder="https://example.com"
+                ></textarea>
+
+                <button class="primary-btn" onclick="generateQR()">
+                    Generate QR Code
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    onclick="clearGenerator()"
+                >
+                    Clear
+                </button>
+
+
+                <div id="qrContainer" class="qr-container">
+                    <p class="placeholder">
+                        Your QR code will appear here
+                    </p>
+                </div>
+
+                <button
+                    id="downloadBtn"
+                    class="secondary-btn hidden"
+                    onclick="downloadQR()"
+                >
+                    Download QR Code
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SCANNER ================= -->
+
+        <section id="scanner" class="section">
+
+            <div class="card">
+
+                <h2>Scan QR Code</h2>
+
+                <p class="description">
+                    Point your camera at a QR code to scan it.
+                </p>
+
+                <div id="reader"></div>
+
+                <div id="scanResult" class="result hidden">
+
+                    <h3>Scan Result</h3>
+
+                    <div id="resultText"></div>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="copyResult()"
+                    >
+                        Copy Result
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer>
+    <p>
+        QR Code Generator & Scanner
+        •
+        <strong>Mujtaba Mini Project</strong>
+    </p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
