@@ -54,6 +54,45 @@
                     placeholder="https://example.com"
                 ></textarea>
 
+                <div class="customization">
+
+                    <h3>Customize QR Code</h3>
+
+                    <div class="color-controls">
+
+                         <div>
+                             <label for="qrColor">QR Color</label>
+                             <input
+                                type="color"
+                                id="qrColor"
+                                value="#111827"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="bgColor">Background</label>
+                        <input
+                            type="color"
+                            id="bgColor"
+                            value="#ffffff"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="qrSize">Size</label>
+
+                        <select id="qrSize">
+                            <option value="180">Small</option>
+                            <option value="220" selected>Medium</option>
+                            <option value="280">Large</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+
                 <button class="primary-btn" onclick="generateQR()">
                     Generate QR Code
                 </button>
@@ -113,6 +152,28 @@
                     </button>
 
                 </div>
+
+                <div class="history">
+
+                    <div class="history-header">
+                        <h3>Scan History</h3>
+
+                        <button
+                            class="clear-history"
+                            onclick="clearHistory()"
+                        >
+                            Clear History
+                        </button>
+                    </div>
+
+                    <div id="historyList">
+                        <p class="empty-history">
+                            No scans yet.
+                        </p>
+                    </div>
+
+                </div>
+
 
             </div>
 

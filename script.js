@@ -8,27 +8,29 @@ function generateQR() {
     const container = document.getElementById("qrContainer");
     const downloadBtn = document.getElementById("downloadBtn");
 
+    const qrColor = document.getElementById("qrColor").value;
+    const bgColor = document.getElementById("bgColor").value;
+    const qrSize = Number(document.getElementById("qrSize").value);
+
     if (text === "") {
         alert("Please enter some text or a URL.");
         return;
     }
 
-    // Clear previous QR code
     container.innerHTML = "";
 
-    // Generate QR
     new QRCode(container, {
         text: text,
-        width: 220,
-        height: 220,
-        colorDark: "#111827",
-        colorLight: "#ffffff",
+        width: qrSize,
+        height: qrSize,
+        colorDark: qrColor,
+        colorLight: bgColor,
         correctLevel: QRCode.CorrectLevel.H
     });
 
-    // Show download button
     downloadBtn.classList.remove("hidden");
 }
+
 
 
 // ===============================
@@ -118,7 +120,10 @@ function startScanner() {
             document
                 .getElementById("scanResult")
                 .classList.remove("hidden");
+
+            saveToHistory(decodedText);
         },
+
 
         function(errorMessage) {
             // Scanner continuously searches.
@@ -176,3 +181,98 @@ function clearGenerator() {
         .classList.add("hidden");
 }
 
+// ===============================
+// SCAN HISTORY
+// ===============================
+
+function saveToHistory(result) {
+
+    let history =
+        JSON.parse(localStorage.getItem("qrHistory")) || [];
+
+    // Avoid adding the same result repeatedly
+    if (history.includes(result)) {
+        return;
+    }
+
+    history.unshift(result);
+
+    // Keep only the latest 10 scans
+    history = history.slice(0, 10);
+
+    localStorage.setItem(
+        "qrHistory",
+        JSON.stringify(history)
+    );
+
+    displayHistory();
+}
+
+
+function displayHistory() {
+
+    const historyList =
+        document.getElementById("historyList");
+
+    const history =
+        JSON.parse(localStorage.getItem("qrHistory")) || [];
+
+    if (history.length === 0) {
+
+        historyList.innerHTML = `
+            <p class="empty-history">
+                No scans yet.
+            </p>
+        `;
+
+        return;
+    }
+
+    historyList.innerHTML = history
+        .map((item, index) => `
+            <div class="history-item">
+
+                <span>${escapeHTML(item)}</span>
+
+                <button
+                    onclick="copyHistoryItem(${index})"
+                >
+                    Copy
+                </button>
+
+            </div>
+        `)
+        .join("");
+}
+
+
+function copyHistoryItem(index) {
+
+    const history =
+        JSON.parse(localStorage.getItem("qrHistory")) || [];
+
+    navigator.clipboard.writeText(history[index])
+        .then(() => {
+            alert("Copied!");
+        });
+}
+
+
+function clearHistory() {
+
+    localStorage.removeItem("qrHistory");
+
+    displayHistory();
+}
+
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+displayHistory();
