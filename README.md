@@ -1,10 +1,10 @@
 # QR Code Generator & Scanner
 
-A simple and responsive web application that allows users to generate QR codes from text or URLs and scan QR codes using their device camera.
+A simple and responsive web application that allows users to generate QR codes from text or URL's and scan QR codes using their device camera.
 
 ## Features
 
-- Generate QR codes from text or URLs
+- Generate QR codes from text or URL's
 - Download generated QR codes
 - Scan QR codes using the camera
 - Display scanned results
